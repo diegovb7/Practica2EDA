@@ -37,5 +37,5 @@ class InfoTur{
 	friend ostream & operator<<(ostream &, const InfoTur &); //devuelve todo separado por espacios y al final un salto.
 
 };
-
+//fin de fichero
 #endif
