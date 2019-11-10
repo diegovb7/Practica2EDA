@@ -1,0 +1,18 @@
+MMMMM
+MTTTM
+MTTTM
+MTTTM
+MMMMM
+<LOCALIDAD>
+Paris
+1 1
+<INFO>
+hotel 1
+aeropuerto
+* mundiales del lol
+<LOCALIDAD>
+España
+2 2
+<INFO>
+museo 1
+monumento 2

@@ -105,6 +105,18 @@ string Provincia::getCostera(Coleccion &c){
         return "no hay ninguna localidad costera";
     }
     else{
-        
+        Localidad aux;
+        for(unsigned int i=0;i<costeras.size();i++){
+            for(unsigned int j=0;j<costeras.size()-1;j++){
+                int d1=calculaDistancia(lc, costeras[j]);
+                int d2=calculaDistancia(lc, costeras[j+1]);
+                if(d1>d2){
+                    aux=costeras[j];
+                    costeras[j]=costeras[j+1];
+                    costeras[j+1]=aux;
+                }
+            }
+        }
+        return costeras[0].getNombre();
     }
 }

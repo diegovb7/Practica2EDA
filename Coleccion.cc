@@ -35,7 +35,7 @@ void Coleccion::lectura(string n){
     int mu=0, mo=0, ho=0, re=0;
     bool ae=false;
     string top="";
-    while(linea!="<LOCALIDAD>" && !fichero.eof()){
+    while(linea!="<LOCALIDAD>"){
         int size = linea.length();
         char cadena_char[size]; // preguntar a alicia como se usa el c_str() adecuadamente
         strcpy(cadena_char, linea.c_str());
@@ -47,7 +47,7 @@ void Coleccion::lectura(string n){
         getline(fichero, linea);
     }
     //hemos leido y guardado el mapa
-    while(getline(fichero, linea)){//leemos el nombre de la localidad
+    while(getline(fichero, linea) && !fichero.eof()){//leemos el nombre de la localidad
         if(linea=="<LOCALIDAD>"){ //en el caso de que hayamos leido localidad, volvemos a leer
             getline(fichero, linea);
         }
