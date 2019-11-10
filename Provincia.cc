@@ -2,6 +2,8 @@
 #include <vector>
 #include <iostream>
 #include "Provincia.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 
 Provincia::Provincia(){

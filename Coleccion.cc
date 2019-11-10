@@ -35,7 +35,7 @@ void Coleccion::lectura(string n){
     int mu=0, mo=0, ho=0, re=0;
     bool ae=false;
     string top="";
-    while(linea!="<LOCALIDAD>"){
+    while(linea!="<LOCALIDAD>" && !fichero.eof()){
         int size = linea.length();
         char cadena_char[size]; // preguntar a alicia como se usa el c_str() adecuadamente
         strcpy(cadena_char, linea.c_str());
