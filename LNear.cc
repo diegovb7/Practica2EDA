@@ -133,6 +133,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
                         }
                     }
                 }
+                insercion=insercion->next;
             }
         }
     }
