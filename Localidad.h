@@ -31,4 +31,5 @@ class Localidad{
         friend ostream & operator<<(ostream &, const Localidad &);
 };
 
+
 #endif
