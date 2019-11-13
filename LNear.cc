@@ -243,6 +243,16 @@ Localidad & LNear::getLocalidad(int i){
     }
     return error;
 }
+
+int LNear::numeroNodos(){
+    int ret=0;
+    NodoL *aux=pr;
+    while(aux!=NULL){
+        ret+=1;
+        aux=aux->next;
+    }
+    return ret;
+}
     
 ostream & operator<<(ostream &os, const LNear &l){
     LNear::NodoL *aux;

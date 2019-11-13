@@ -83,6 +83,7 @@ class LNear{
         int borraLocalidad(string );
         void borraLocalidades(int );
         Localidad & getLocalidad(int );
+        int numeroNodos();
 
         friend ostream & operator<<(ostream &, const LNear &);
 

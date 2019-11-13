@@ -122,3 +122,29 @@ string Provincia::getCostera(Coleccion &c){
         return costeras[0].getNombre();
     }
 }
+
+LNear Provincia::getCosteras(Coleccion &c){
+    LNear lista;
+
+    vector<Localidad> costeras=vectorCosteras(c);
+    for(unsigned int i=0;i<costeras.size();i++){
+        int distancia=calculaDistancia(lc, costeras[i]);
+        lista.insertaLocalidad(costeras[i], distancia);
+    }
+
+    return lista;
+}
+
+string Provincia::getConAeropuerto(){
+    if(lc.getInfo().getAeropuerto()){
+        return "propio";
+    }
+    else{
+        for(int i=0;i<locprox.numeroNodos();i++){
+            if(locprox.getLocalidad(i).getInfo().getAeropuerto()){
+                return locprox.getLocalidad(i).getNombre();
+            }
+        }
+        return "sin aeropuerto";
+    }
+}
