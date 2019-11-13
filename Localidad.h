@@ -2,6 +2,7 @@
 #define LOCALIDAD_h
 #include "Coordenadas.h"
 #include "InfoTur.h"
+#include "Coleccion.h"
 #include <iostream> 
 #include <string> 
 #include <vector>
@@ -27,6 +28,7 @@ class Localidad{
         Coordenadas & getCoor();
         InfoTur & getInfo();
         int getId();
+        bool esCostera(Coleccion &);
 
         friend ostream & operator<<(ostream &, const Localidad &);
 };

@@ -36,6 +36,38 @@ Localidad & Localidad::operator=(const Localidad &l){
     return *this;
 }
 
+bool Localidad::esCostera(Coleccion &c){
+    bool ret=false;
+    bool m_arriba=false, m_abajo=false, m_izquierda=false, m_derecha=false;
+
+    
+    if(getCoor().getFila()-1>-1 && c.getMapa()[getCoor().getFila()-1][getCoor().getColumna()]=='M'){
+        m_arriba=true;
+    }
+
+    unsigned int u_f1=getCoor().getFila()+1;
+
+    if(u_f1<c.getMapa().size() && c.getMapa()[getCoor().getFila()+1][getCoor().getColumna()]=='M'){
+        m_abajo=true;
+    }
+
+    if(getCoor().getColumna()-1>-1 && c.getMapa()[getCoor().getFila()][getCoor().getColumna()-1]=='M'){
+        m_izquierda=true;
+    }
+
+    unsigned int u_c1=getCoor().getColumna()+1;
+
+    if(u_c1<c.getMapa()[0].size() && c.getMapa()[getCoor().getFila()][getCoor().getColumna()+1]=='M'){
+        m_derecha=true;
+    }
+
+    if(m_arriba || m_abajo || m_izquierda || m_derecha){
+        ret=true;
+    }
+    
+    return ret;
+}
+
 int Localidad::setCoor(int f, int c, vector<vector<char> > &mapa){
     int ret=-1;
 	unsigned int u_f=f;

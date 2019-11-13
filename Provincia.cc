@@ -66,12 +66,33 @@ LNear & Provincia::getCercanas(){
 
 bool Provincia::esCostera(Coleccion &c, Localidad l){
     bool ret=false;
-    if(c.getMapa()[l.getCoor().getFila()-1][l.getCoor().getColumna()]=='M' ||
-        c.getMapa()[l.getCoor().getFila()+1][l.getCoor().getColumna()]=='M' || 
-        c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()-1]=='M' || 
-        c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()+1]=='M'){
+    bool m_arriba=false, m_abajo=false, m_izquierda=false, m_derecha=false;
+
+    
+    if(l.getCoor().getFila()-1>-1 && c.getMapa()[l.getCoor().getFila()-1][l.getCoor().getColumna()]=='M'){
+        m_arriba=true;
+    }
+
+    unsigned int u_f1=l.getCoor().getFila()+1;
+
+    if(u_f1<c.getMapa().size() && c.getMapa()[l.getCoor().getFila()+1][l.getCoor().getColumna()]=='M'){
+        m_abajo=true;
+    }
+
+    if(l.getCoor().getColumna()-1>-1 && c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()-1]=='M'){
+        m_izquierda=true;
+    }
+
+    unsigned int u_c1=l.getCoor().getColumna()+1;
+
+    if(u_c1<c.getMapa()[0].size() && c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()+1]=='M'){
+        m_derecha=true;
+    }
+
+    if(m_arriba || m_abajo || m_izquierda || m_derecha){
         ret=true;
     }
+    
     return ret;
 }
 
