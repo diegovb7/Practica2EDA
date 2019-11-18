@@ -143,8 +143,10 @@ int LNear::borraLocalidad(string s){
     int ret=-1;
     bool borrado=false;
     NodoL *aux=pr;
+    NodoL *aux2;
     if(!esVacia()){
         while(aux!=NULL && !borrado){
+            aux2=aux1->next;
             if(aux->localidad.getNombre()==s){
                 if(aux==pr && aux==ul){ //cuando solo hay un elemento en la lista
                     ret=aux->distancia;
@@ -183,7 +185,7 @@ int LNear::borraLocalidad(string s){
                     }
                 }
             }
-            aux=aux->next;
+            aux=aux2;
         }
     }
     return ret;
@@ -196,7 +198,6 @@ void LNear::borraLocalidades(int d){
         while(aux!=NULL){
             aux2=aux->next;
             if(aux->distancia>d){
-                cout<<"estoy en el nodo: "<<*aux<<endl;
                 if(aux==pr && aux==ul){ //cuando solo hay un elemento en la lista
                     pr=NULL;
                     ul=NULL;

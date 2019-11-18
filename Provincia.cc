@@ -45,9 +45,9 @@ void Provincia::calculaCercanas(Coleccion &c, int distancia){
         locprox.borraLocalidades(-1);
     }
     else{
-        for(unsigned int i=0;i<c.getLocalidades().size();i++){
+        for(unsigned int i=1;i<c.getLocalidades().size();i++){
             int nueva_distancia=calculaDistancia(lc, c.getLocalidades()[i]);
-            if(nueva_distancia<=distancia){
+            if(nueva_distancia<distancia){
                 locprox.insertaLocalidad(c.getLocalidades()[i], nueva_distancia);
             }
         }
@@ -98,9 +98,9 @@ bool Provincia::esCostera(Coleccion &c, Localidad l){
 
 vector<Localidad> Provincia::vectorCosteras(Coleccion &c){
     vector<Localidad> costeras;
-    for(unsigned int i=0;i<c.getLocalidades().size();i++){
-        if(esCostera(c, c.getLocalidades()[i])){
-            costeras.push_back(c.getLocalidades()[i]);
+    for(int i=0;i<locprox.numeroNodos()-1;i++){
+        if(esCostera(c, locprox.getLocalidad(i))){
+            costeras.push_back(locprox.getLocalidad(i));
         }
     }
     return costeras;
@@ -128,6 +128,7 @@ string Provincia::getCostera(Coleccion &c){
         return "no hay ninguna localidad costera";
     }
     else{
+        /*
         Localidad aux;
         for(unsigned int i=0;i<costeras.size();i++){
             for(unsigned int j=0;j<costeras.size()-1;j++){
@@ -140,6 +141,7 @@ string Provincia::getCostera(Coleccion &c){
                 }
             }
         }
+        */
         return costeras[0].getNombre();
     }
 }
@@ -149,6 +151,7 @@ LNear Provincia::getCosteras(Coleccion &c){
 
     vector<Localidad> costeras=vectorCosteras(c);
     for(unsigned int i=0;i<costeras.size();i++){
+        cout<<"VOY POR LA CIUDAD CON NOMBRE: "<<costeras[i].getNombre()<<endl;
         int distancia=calculaDistancia(lc, costeras[i]);
         lista.insertaLocalidad(costeras[i], distancia);
     }
@@ -168,4 +171,9 @@ string Provincia::getConAeropuerto(){
         }
         return "sin aeropuerto";
     }
+}
+
+ostream & operator<<(ostream &os, Provincia &p){
+    os<<p.lc.getNombre()<<endl<<p.locprox;
+    return os;
 }
