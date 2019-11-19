@@ -7,22 +7,22 @@ int main(int argc, char *argv[]){
     Coleccion c;
     c.lectura(argv[1]);
 
-    Provincia inicio_aux(c.getLocalidades()[0]);
-    bool primera_costera=false;
-    if(inicio_aux.esCostera(c, c.getLocalidades()[0])){
-       primera_costera=true; 
-    }
+    cout<<"MAPA:"<<endl<<c<<endl;
 
+    Provincia p(c.getLocalidades()[0]);
+    p.calculaCercanas(c, 100000);
+    cout<<"PROVINCIA INICIAL:"<<endl<<p<<endl;
+    
     Provincia inicio;
-
-    if(primera_costera){
-        Provincia p(c.getLocalidades()[0]);
+    
+    if(p.soyCostera(c)){
+        //cout<<"Es costera la inicial"<<endl;
         inicio=p;
     }else{
-        Provincia p(inicio_aux.getCosteras(c).getLocalidad(0));
-        inicio=p;
+        Provincia aux(p.getCosteras(c).getLocalidad(0));
+        inicio=aux;
+        cout<<c.getLocalidades()[0].getNombre()<<" "<<p.getCosteras(c).getLocalidad(0).getNombre()<<" "<<p.calculaDistancia(c.getLocalidades()[0], p.getCosteras(c).getLocalidad(0))<<endl;
     }
 
     
-
 }

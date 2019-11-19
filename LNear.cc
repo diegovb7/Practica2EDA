@@ -146,7 +146,7 @@ int LNear::borraLocalidad(string s){
     NodoL *aux2;
     if(!esVacia()){
         while(aux!=NULL && !borrado){
-            aux2=aux1->next;
+            aux2=aux->next;
             if(aux->localidad.getNombre()==s){
                 if(aux==pr && aux==ul){ //cuando solo hay un elemento en la lista
                     ret=aux->distancia;

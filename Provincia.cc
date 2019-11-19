@@ -64,6 +64,10 @@ LNear & Provincia::getCercanas(){
     return locprox;
 }
 
+bool Provincia::soyCostera(Coleccion &c){
+    return esCostera(c, lc);
+}
+
 bool Provincia::esCostera(Coleccion &c, Localidad l){
     bool ret=false;
     bool m_arriba=false, m_abajo=false, m_izquierda=false, m_derecha=false;
@@ -151,7 +155,6 @@ LNear Provincia::getCosteras(Coleccion &c){
 
     vector<Localidad> costeras=vectorCosteras(c);
     for(unsigned int i=0;i<costeras.size();i++){
-        cout<<"VOY POR LA CIUDAD CON NOMBRE: "<<costeras[i].getNombre()<<endl;
         int distancia=calculaDistancia(lc, costeras[i]);
         lista.insertaLocalidad(costeras[i], distancia);
     }
