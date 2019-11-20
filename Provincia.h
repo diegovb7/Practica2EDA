@@ -22,6 +22,8 @@ class Provincia{
         LNear getCosteras(Coleccion & );
         string getConAeropuerto();
         bool soyCostera(Coleccion &);
+        Localidad & getLocalidad();
+        Localidad getLocalidadSR();
 
         friend ostream & operator<<(ostream &, Provincia & );
 

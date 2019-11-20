@@ -34,6 +34,14 @@ Provincia::~Provincia(){
     locprox=LNear();
 }
 
+Localidad & Provincia::getLocalidad(){
+    return lc;
+}
+
+Localidad Provincia::getLocalidadSR(){
+    return lc;
+}
+
 int Provincia::calculaDistancia(Localidad a, Localidad b){
     int distancia=0;
     distancia=abs(a.getCoor().getFila()-b.getCoor().getFila())+abs(a.getCoor().getColumna()-b.getCoor().getColumna());
