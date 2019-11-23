@@ -32,4 +32,3 @@ Sinrola
 ** la fontana di trevi
 hotel 10
 restaurante 10
-
