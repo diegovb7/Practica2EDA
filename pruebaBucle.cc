@@ -37,9 +37,9 @@ int main(){
         }
         
     }
-   for(int n=3;n<=7;n++){
-       cout<<"Bucle numero "<<n<<endl;
-    for(int i=n;i!=n-1;i++){
+    for(int n=3;n<=7;n++){
+        cout<<"Bucle numero "<<n<<endl;
+        for(int i=n;i!=n-1;i++){
             //cout<<"EN ESTE MOMENTO I VALE: "<<i<<endl;
             if(i==7){
                 cout<<"Comparo el "<<i-1<<" con el "<<i<<endl;
@@ -61,5 +61,5 @@ int main(){
                 cout<<"Comparo el "<<i<<" con el "<<i+1<<endl;
             }
         }
-   }
+    }
 }
