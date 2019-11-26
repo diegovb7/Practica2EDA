@@ -36,6 +36,13 @@ Localidad & Localidad::operator=(const Localidad &l){
     return *this;
 }
 
+bool Localidad::operator==(Localidad &l){
+    if(id!=l.id || info!=l.info || coor.getFila()!=l.coor.getFila() || coor.getColumna()!=l.coor.getColumna() || nombre!=l.nombre){
+        return false;
+    }
+    return true;
+}
+
 int Localidad::setCoor(int f, int c, vector<vector<char> > &mapa){
     int ret=-1;
 	unsigned int u_f=f;

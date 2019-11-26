@@ -64,6 +64,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
     NodoL *aux=new NodoL(p);
     bool iguales=false;
     aux->distancia=d;
+    //cout<<"NODO DEL BYCLE INFINITO: "<<*aux<<endl;
 
     NodoL *recorre;
     recorre=pr;
@@ -82,22 +83,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
             bool dentro=false;
             NodoL *insercion;
             insercion=pr;
-            if(d>ul->distancia){ //si la distancia ya es mayor que la ultima, directamente se mete al final
-                aux->prev=ul;
-                ul->next=aux;
-                ul=aux;
-                dentro=true;
-            }
-            else{ //si no es mas, puede ser igual
-                if(d==ul->distancia){ //si la distancia es la misma
-                    if(strcmp(insercion->localidad.getNombre().c_str(), aux->localidad.getNombre().c_str())<0){ //comparamos las cadenas
-                        aux->prev=ul;
-                        ul->next=aux;
-                        ul=aux;
-                        dentro=true;
-                    }
-                }
-            }
+            
             while(insercion!=NULL && !dentro){
                 if(d<insercion->distancia){
                     if(insercion==pr){ //si donde tengo que meterlo es al principio
@@ -107,6 +93,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
                         dentro=true;
                     }
                     else{ //si no es al principio
+                        //cout<<"*info del nodo: "<<*aux<<endl;
                         insercion->prev->next=aux;
                         aux->prev=insercion->prev;
                         insercion->prev=aux;
@@ -116,14 +103,16 @@ void LNear::insertaLocalidad(Localidad p, int d){
                 }
                 else{
                     if(d==insercion->distancia){
-                        if(strcmp(aux->localidad.getNombre().c_str(), insercion->localidad.getNombre().c_str())<0){
-                            if(insercion==pr){
-                                insercion->prev=aux;
-                                aux=insercion;
+                        if(aux->localidad.getNombre()<insercion->localidad.getNombre()){
+                            if(insercion==pr){                   
+                                //cout<<"+info del nodo: "<<*aux<<endl;           
+                                aux->next=pr;
+                                pr->prev=aux;
                                 pr=aux;
                                 dentro=true;
                             }
                             else{
+                                //cout<<"info del nodo: "<<*aux<<endl;
                                 insercion->prev->next=aux;
                                 aux->prev=insercion->prev;
                                 insercion->prev=aux;
@@ -135,6 +124,36 @@ void LNear::insertaLocalidad(Localidad p, int d){
                 }
                 insercion=insercion->next;
             }
+            if(!dentro){
+                if(d>ul->distancia){ //si la distancia ya es mayor que la ultima, directamente se mete al final
+                aux->prev=ul;
+                ul->next=aux;
+                ul=aux;
+                dentro=true;
+                }
+                else{ //si no es mas, puede ser igual
+                    if(d==ul->distancia){ //si la distancia es la misma
+                        if(aux->localidad.getNombre()>ul->localidad.getNombre()){ //comparamos las cadenas
+                            aux->prev=ul;
+                            ul->next=aux;
+                            ul=aux;
+                            dentro=true;
+                        }
+                        else{
+                            if(pr!=ul){
+                                //cout<<"++info del nodo: "<<*aux<<endl;
+                                ul->prev->next=aux;
+                                aux->prev=ul->prev;
+                                ul->prev=aux;
+                                aux->next=ul;
+                                dentro=true; 
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
         }
     }
 }

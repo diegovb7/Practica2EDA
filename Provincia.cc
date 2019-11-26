@@ -53,10 +53,12 @@ void Provincia::calculaCercanas(Coleccion &c, int distancia){
         locprox.borraLocalidades(-1);
     }
     else{
-        for(unsigned int i=1;i<c.getLocalidades().size();i++){
-            int nueva_distancia=calculaDistancia(lc, c.getLocalidades()[i]);
-            if(nueva_distancia<distancia){
-                locprox.insertaLocalidad(c.getLocalidades()[i], nueva_distancia);
+        for(unsigned int i=0;i<c.getLocalidades().size();i++){
+            if(!(c.getLocalidades()[i]==lc)){
+                int nueva_distancia=calculaDistancia(lc, c.getLocalidades()[i]);
+                if(nueva_distancia<distancia){
+                    locprox.insertaLocalidad(c.getLocalidades()[i], nueva_distancia);
+                }
             }
         }
     }
@@ -110,7 +112,7 @@ bool Provincia::esCostera(Coleccion &c, Localidad l){
 
 vector<Localidad> Provincia::vectorCosteras(Coleccion &c){
     vector<Localidad> costeras;
-    for(int i=0;i<locprox.numeroNodos()-1;i++){
+    for(int i=0;i<locprox.numeroNodos();i++){
         if(esCostera(c, locprox.getLocalidad(i))){
             costeras.push_back(locprox.getLocalidad(i));
         }

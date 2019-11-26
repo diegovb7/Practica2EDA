@@ -21,6 +21,7 @@ class Localidad{
         Localidad(const Localidad &);
         ~Localidad();
         Localidad & operator=(const Localidad &);
+        bool operator==(Localidad &);
         int setCoor(int, int, vector<vector<char> > &);
         void setInfo(InfoTur );
         string getNombre();
