@@ -52,7 +52,7 @@ int main(){
                         cout<<"Comparo el "<<7<<" con el "<<0<<endl;
                     }
                     else{
-                        cout<<"Comparo el "<<i-1<<" con el "<<i<<endl;
+                        cout<<"***Comparo el "<<i-1<<" con el "<<i<<endl;
                     }
                 }   
             }

@@ -50,10 +50,12 @@ int main(int argc, char *argv[]){
     Coordenadas d6;
     Coordenadas d7;
     vector<Coordenadas> vector_inicial;
+    //cout<<inicio.getLocalidad().getCoor()<<endl;
     vector_inicial=cambiarCoordenadas(d0, d1, d2, d3, d4, d5, d6, d7, inicio.getLocalidad().getCoor());
     int direccion_inicial=0;
-    Coordenadas nuevaCoordenada;
+    Coordenadas nuevaCoordenada=inicio.getLocalidad().getCoor();
     direccion_inicial=vista0(vector_inicial, nuevaCoordenada, c);
+    //cout<<nuevaCoordenada<<endl;
     
     vector<int> movimientos;
     movimientos.push_back(direccion_inicial);
@@ -62,10 +64,13 @@ int main(int argc, char *argv[]){
     Localidad p_anterior=inicio.getLocalidadSR();
     Localidad p_nueva;
 
-    while(nuevaCoordenada.getFila()!=inicio.getLocalidad().getCoor().getFila() || nuevaCoordenada.getColumna()!=inicio.getLocalidad().getCoor().getColumna()){
+    while(!(p_nueva==inicio.getLocalidad())){
+        //cout<<"Direccion: "<<direccion_inicial<<endl;
         vector_inicial.clear();
         vector_inicial=cambiarCoordenadas(d0, d1, d2, d3, d4, d5, d6, d7, nuevaCoordenada);
         direccion_inicial=(direccion_inicial+5)%8;
+        //cout<<"Nueva direccion"<<direccion_inicial<<endl;
+
         switch(direccion_inicial){
             case 0: 
                 direccion_inicial=vista0(vector_inicial, nuevaCoordenada, c);
@@ -92,6 +97,8 @@ int main(int argc, char *argv[]){
                 direccion_inicial=vista7(vector_inicial, nuevaCoordenada, c);
                 break;
         }
+        //cout<<"siguiente"<<direccion_inicial<<endl;
+        //break;
         recorridoLocalidades+=1;
         movimientos.push_back(direccion_inicial);
         if(c.getCoorMapa(nuevaCoordenada)=='L'){
@@ -144,6 +151,9 @@ int vista0(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c){
             coor=v[i];
         }
     }
+    if(!coordenada_encontrada){
+        coor=v[0];
+    }
     return ret;
 }
 
@@ -178,11 +188,12 @@ int vista1(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c){
 }
 
 int vista23456(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c, int n){
-    int ret=0;
+    int ret=-1;
     bool encontrada=false;
     for(int i=n;i!=n-1 && !encontrada;i++){
             if(i==7){
                 if(c.getCoorMapa(v[i-1])=='M' && (c.getCoorMapa(v[i])=='T' || c.getCoorMapa(v[i])=='L')){
+                    
                     ret=i;
                     encontrada=true;
                     coor=v[i];
@@ -193,6 +204,7 @@ int vista23456(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c, int n){
                 if(i!=n-2){
                     if(i==0){
                         if(c.getCoorMapa(v[7])=='M' && (c.getCoorMapa(v[0])=='T' || c.getCoorMapa(v[0])=='L')){
+                            
                             ret=i;
                             encontrada=true;
                             coor=v[i];
@@ -200,6 +212,7 @@ int vista23456(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c, int n){
                     }
                     else{
                         if(c.getCoorMapa(v[i-1])=='M' && (c.getCoorMapa(v[i])=='T' || c.getCoorMapa(v[i])=='L')){
+                            
                             ret=i;
                             encontrada=true;
                             coor=v[i];
@@ -209,14 +222,16 @@ int vista23456(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c, int n){
             }
             if(i==n-2){
                 if(c.getCoorMapa(v[i-1])=='M' && (c.getCoorMapa(v[i])=='T' || c.getCoorMapa(v[i])=='L')){
+                    
                     ret=i;
                     encontrada=true;
                     coor=v[i];
                 }
                 else if(c.getCoorMapa(v[i])=='M' && (c.getCoorMapa(v[i+1])=='T' || c.getCoorMapa(v[i+1])=='L')){
-                        ret=i;
+                    
+                        ret=i+1;
                         encontrada=true;
-                        coor=v[i];
+                        coor=v[i+1];
                     }
             }
         }
