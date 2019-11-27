@@ -35,3 +35,8 @@ mapa
 eje
 ejec
 pruebaBucle
+*.txt
+*.dat
+*.tmp.err
+*.tmp
+*.data

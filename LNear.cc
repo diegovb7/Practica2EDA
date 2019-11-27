@@ -64,6 +64,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
     NodoL *aux=new NodoL(p);
     bool iguales=false;
     aux->distancia=d;
+    bool dentro=false;
     //cout<<"NODO DEL BYCLE INFINITO: "<<*aux<<endl;
 
     NodoL *recorre;
@@ -80,7 +81,7 @@ void LNear::insertaLocalidad(Localidad p, int d){
             recorre=recorre->next;
         }
         if(!iguales){
-            bool dentro=false;
+            
             NodoL *insercion;
             insercion=pr;
             
@@ -152,8 +153,9 @@ void LNear::insertaLocalidad(Localidad p, int d){
                     }
                 }
             }
-            
-            
+        }
+        else{
+            delete aux;
         }
     }
 }

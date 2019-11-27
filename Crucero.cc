@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+bool esCostera(Coleccion &, Localidad l);
 int vista0(vector<Coordenadas> &, Coordenadas &, Coleccion &);
 int vista1(vector<Coordenadas> &, Coordenadas &, Coleccion &);
 int vista23456(vector<Coordenadas> &, Coordenadas &, Coleccion &, int);
@@ -12,7 +13,9 @@ vector<Coordenadas> cambiarCoordenadas(Coordenadas &, Coordenadas &, Coordenadas
 int main(int argc, char *argv[]){
     Coleccion c;
     c.lectura(argv[1]);
-    int posicion_de_la_primera_costera=0;
+    vector<int> movimientos;
+    if(!c.getLocalidades().empty()){
+        int posicion_de_la_primera_costera=0;
     for(unsigned int i=1;i<c.getLocalidades().size() && posicion_de_la_primera_costera==0;i++){
         Localidad aux=c.getLocalidades()[i];
         int fila=aux.getCoor().getFila();
@@ -31,9 +34,9 @@ int main(int argc, char *argv[]){
         //cout<<"Es costera la inicial"<<endl;
         inicio=p;
     }else{
-        Provincia aux(c.getLocalidades()[posicion_de_la_primera_costera]);
+        Provincia aux(p.getCosteras(c).getLocalidad(0));
         inicio=aux;
-        cout<<c.getLocalidades()[0].getNombre()<<" "<<c.getLocalidades()[posicion_de_la_primera_costera].getNombre()<<" "<<p.calculaDistancia(c.getLocalidades()[0], c.getLocalidades()[posicion_de_la_primera_costera])<<endl;
+        cout<<c.getLocalidades()[0].getNombre()<<" "<<p.getCosteras(c).getLocalidad(0).getNombre()<<" "<<p.calculaDistancia(c.getLocalidades()[0], p.getCosteras(c).getLocalidad(0))<<endl;
     }
 
     //hasta aqui ya se ha mostrado, en el caso de que la localidad primera no sea costera, el nombre de la primera, la primera costera y la 
@@ -57,12 +60,26 @@ int main(int argc, char *argv[]){
     direccion_inicial=vista0(vector_inicial, nuevaCoordenada, c);
     //cout<<nuevaCoordenada<<endl;
     
-    vector<int> movimientos;
+    if(direccion_inicial!=-1){
+
+    
+    
     movimientos.push_back(direccion_inicial);
     int recorridoLocalidades=1;
 
     Localidad p_anterior=inicio.getLocalidadSR();
     Localidad p_nueva;
+
+    if(c.getCoorMapa(nuevaCoordenada)=='L'){
+            for(unsigned int i=0;i<c.getLocalidades().size();i++){
+                if(nuevaCoordenada.getFila()==c.getLocalidades()[i].getCoor().getFila() && nuevaCoordenada.getColumna()==c.getLocalidades()[i].getCoor().getColumna()){
+                    p_nueva=c.getLocalidades()[i];
+                }
+            }
+            cout<<p_anterior.getNombre()<<" "<<p_nueva.getNombre()<<" "<<recorridoLocalidades<<endl;
+            recorridoLocalidades=0;
+            p_anterior=p_nueva;
+        }
 
     while(!(p_nueva==inicio.getLocalidad())){
         //cout<<"Direccion: "<<direccion_inicial<<endl;
@@ -112,12 +129,47 @@ int main(int argc, char *argv[]){
             p_anterior=p_nueva;
         }        
     }
+    }
+    }
+    
     cout<<"total="<<movimientos.size()<<endl;
     for(unsigned int i=0;i<movimientos.size();i++){
         cout<<movimientos[i];
     }
     cout<<endl;
     
+}
+
+bool esCostera(Coleccion &c, Localidad l){
+    bool ret=false;
+    bool m_arriba=false, m_abajo=false, m_izquierda=false, m_derecha=false;
+
+    
+    if(l.getCoor().getFila()-1>-1 && c.getMapa()[l.getCoor().getFila()-1][l.getCoor().getColumna()]=='M'){
+        m_arriba=true;
+    }
+
+    unsigned int u_f1=l.getCoor().getFila()+1;
+
+    if(u_f1<c.getMapa().size() && c.getMapa()[l.getCoor().getFila()+1][l.getCoor().getColumna()]=='M'){
+        m_abajo=true;
+    }
+
+    if(l.getCoor().getColumna()-1>-1 && c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()-1]=='M'){
+        m_izquierda=true;
+    }
+
+    unsigned int u_c1=l.getCoor().getColumna()+1;
+
+    if(u_c1<c.getMapa()[0].size() && c.getMapa()[l.getCoor().getFila()][l.getCoor().getColumna()+1]=='M'){
+        m_derecha=true;
+    }
+
+    if(m_arriba || m_abajo || m_izquierda || m_derecha){
+        ret=true;
+    }
+    
+    return ret;
 }
 
 vector<Coordenadas> cambiarCoordenadas(Coordenadas &d0, Coordenadas &d1, Coordenadas &d2, Coordenadas &d3, Coordenadas &d4, Coordenadas &d5, Coordenadas &d6, Coordenadas &d7, Coordenadas &ref){
@@ -142,7 +194,7 @@ vector<Coordenadas> cambiarCoordenadas(Coordenadas &d0, Coordenadas &d1, Coorden
 }
 
 int vista0(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c){
-    int ret=0;
+    int ret=-1;
     bool coordenada_encontrada=false;
     for(unsigned int i=1;i<=v.size() && !coordenada_encontrada;i++){
         if(c.getCoorMapa(v[i-1])=='M' && (c.getCoorMapa(v[i])=='T' || c.getCoorMapa(v[i])=='L')){
@@ -151,7 +203,8 @@ int vista0(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c){
             coor=v[i];
         }
     }
-    if(!coordenada_encontrada){
+    if(c.getCoorMapa(v[7])=='M' && (c.getCoorMapa(v[0])=='T' || c.getCoorMapa(v[0])=='L')){
+        ret=0;
         coor=v[0];
     }
     return ret;
@@ -170,12 +223,12 @@ int vista1(vector<Coordenadas> &v, Coordenadas &coor, Coleccion &c){
             int aux=i;
             i=1;
             if(c.getCoorMapa(v[aux])=='M' && (c.getCoorMapa(v[i-1])=='T' || c.getCoorMapa(v[i-1])=='L')){
-                ret=i;
+                ret=i-1;
                 encontrada=true;
-                coor=v[i];
+                coor=v[i-1];
             }
         }
-        if(i==1){
+        if(i==1 && !encontrada){
             if(c.getCoorMapa(v[i-1])=='M' && (c.getCoorMapa(v[i])=='T' || c.getCoorMapa(v[i])=='L')){
                 ret=i;
                 encontrada=true;

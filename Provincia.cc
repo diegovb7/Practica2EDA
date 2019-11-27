@@ -52,16 +52,16 @@ void Provincia::calculaCercanas(Coleccion &c, int distancia){
     if(!locprox.esVacia()){
         locprox.borraLocalidades(-1);
     }
-    else{
+    
         for(unsigned int i=0;i<c.getLocalidades().size();i++){
             if(!(c.getLocalidades()[i]==lc)){
                 int nueva_distancia=calculaDistancia(lc, c.getLocalidades()[i]);
-                if(nueva_distancia<distancia){
+                if(nueva_distancia<=distancia){
                     locprox.insertaLocalidad(c.getLocalidades()[i], nueva_distancia);
                 }
             }
         }
-    }
+    
 }
 
 int Provincia::borraLocalidad(string s){
