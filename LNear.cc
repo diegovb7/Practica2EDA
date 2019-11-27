@@ -25,6 +25,7 @@ LNear::LNear(const LNear &l){
     NodoL *aux=l.pr;
     pr=NULL;
     ul=NULL;
+    borraLocalidades(-100000);
     while(aux!=NULL){
         insertaLocalidad(aux->localidad, aux->distancia);
         aux=aux->next;
@@ -33,6 +34,7 @@ LNear::LNear(const LNear &l){
 
 LNear & LNear::operator=(const LNear &l){
     if(this!=&l){
+        borraLocalidades(-100000);
         NodoL *aux=l.pr;
         while(aux!=NULL){
             insertaLocalidad(aux->localidad, aux->distancia);
