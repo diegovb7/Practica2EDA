@@ -1,4 +1,5 @@
 #ifndef COLECCION_h
+#define COLECCION_h
 #include "Localidad.h"
 #include <iostream> 
 #include <string> 

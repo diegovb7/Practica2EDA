@@ -1,3 +1,5 @@
+#ifndef PROVINCIA_h
+#define PROVINCIA_h
 #include "LNear.h"
 
 class Provincia{
@@ -28,3 +30,4 @@ class Provincia{
         friend ostream & operator<<(ostream &, Provincia & );
 
 };
+#endif

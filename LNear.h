@@ -1,3 +1,5 @@
+#ifndef LNEAR_h
+#define LNEAR_h
 #include "Coleccion.h"
 
 class LNear{
@@ -88,6 +90,7 @@ class LNear{
         friend ostream & operator<<(ostream &, const LNear &);
 
 };
+#endif
 /*
 class LNear::NodoL{
     private:
