@@ -28,7 +28,6 @@ int main(int argc, char *argv[]){
         Provincia inicio;
         
         if(p.soyCostera(c)){
-            //cout<<"Es costera la inicial"<<endl;
             inicio=p;
         }else{
             Provincia aux(p.getCosteras(c).getLocalidad(0));
