@@ -9,6 +9,7 @@ vector<Coordenadas> cambiarCoordenadas(Coordenadas &, Coordenadas &, Coordenadas
 
 int main(int argc, char *argv[]){
     //jhfdjghdf
+    //comentario
     Coleccion c;
     c.lectura(argv[1]);
     vector<int> movimientos;
