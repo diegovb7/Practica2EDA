@@ -8,6 +8,7 @@ int vista0(vector<Coordenadas> &, Coordenadas &, Coleccion &);
 vector<Coordenadas> cambiarCoordenadas(Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &, Coordenadas &);
 
 int main(int argc, char *argv[]){
+    //jhfdjghdf
     Coleccion c;
     c.lectura(argv[1]);
     vector<int> movimientos;
